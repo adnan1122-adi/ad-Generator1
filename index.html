@@ -1,88 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AdSense Code Generator</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      padding: 20px;
-      max-width: 700px;
-      margin: auto;
-    }
-    h2 {
-      text-align: center;
-    }
-    label {
-      display: block;
-      margin: 10px 0 5px;
-    }
-    input, textarea, button {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      font-size: 16px;
-    }
-    textarea {
-      height: 150px;
-      resize: none;
-    }
-    button {
-      background: #28a745;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #218838;
-    }
-  </style>
+    <title>AdSense Code Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background: #f8f9fa; }
+        h2 { color: #333; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 8px; margin-top: 5px; }
+        button { 
+            margin-top: 15px; 
+            padding: 10px; 
+            background: #28a745; 
+            color: white; 
+            border: none; 
+            cursor: pointer;
+        }
+        button:hover { background: #218838; }
+        textarea { height: 150px; }
+    </style>
 </head>
 <body>
 
-  <h2>Google AdSense Code Generator</h2>
+    <h2>Google AdSense Code Generator</h2>
 
-  <label for="website">Approved Website URL</label>
-  <input type="text" id="website" placeholder="https://example.com">
+    <label for="url">Website URL (Approved)</label>
+    <input type="text" id="url" placeholder="https://yourwebsite.com">
 
-  <label for="clientId">AdSense Client ID</label>
-  <input type="text" id="clientId" placeholder="ca-pub-XXXXXXXXXXXXXXXX">
+    <label for="pubid">AdSense Publisher ID (ca-pub-XXXXXXXXXXXXXXX)</label>
+    <input type="text" id="pubid" placeholder="ca-pub-1234567890123456">
 
-  <label for="slotId">Ad Slot ID</label>
-  <input type="text" id="slotId" placeholder="1234567890">
+    <label for="slotid">Ad Slot ID</label>
+    <input type="text" id="slotid" placeholder="1234567890">
 
-  <button onclick="generateCode()">Generate Ad Code</button>
+    <button onclick="generateCode()">Generate Ad Code</button>
 
-  <label>Generated Code</label>
-  <textarea id="output" readonly></textarea>
+    <label for="output">Generated AdSense Code</label>
+    <textarea id="output" readonly></textarea>
 
-  <script>
-    function generateCode() {
-      const website = document.getElementById("website").value.trim();
-      const clientId = document.getElementById("clientId").value.trim();
-      const slotId = document.getElementById("slotId").value.trim();
+    <script>
+        function generateCode() {
+            let url = document.getElementById('url').value.trim();
+            let pubid = document.getElementById('pubid').value.trim();
+            let slotid = document.getElementById('slotid').value.trim();
 
-      if (!website || !clientId || !slotId) {
-        alert("Please fill in all fields");
-        return;
-      }
+            if (!url || !pubid || !slotid) {
+                alert("Please fill all fields.");
+                return;
+            }
 
-      const code = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${clientId}" crossorigin="anonymous"></script>
+            let code = 
+`<!-- Google AdSense Ad Code -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pubid}"
+     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block"
-     data-ad-client="${clientId}"
-     data-ad-slot="${slotId}"
+     data-ad-client="${pubid}"
+     data-ad-slot="${slotid}"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script>`;
+</script>
+<!-- Approved URL: ${url} -->`;
 
-      document.getElementById("output").value = code;
-    }
-  </script>
+            document.getElementById('output').value = code;
+        }
+    </script>
 
 </body>
 </html>
