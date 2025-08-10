@@ -1,71 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AdSense Code Generator</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 30px; background: #f8f9fa; }
-        h2 { color: #333; }
-        label { display: block; margin-top: 10px; font-weight: bold; }
-        input, textarea { width: 100%; padding: 8px; margin-top: 5px; }
-        button { 
-            margin-top: 15px; 
-            padding: 10px; 
-            background: #28a745; 
-            color: white; 
-            border: none; 
-            cursor: pointer;
-        }
-        button:hover { background: #218838; }
-        textarea { height: 150px; }
-    </style>
+  <title>AdSense Code Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+    .container { max-width: 500px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, textarea, button { width: 100%; padding: 10px; margin: 5px 0; font-size: 14px; }
+    textarea { height: 200px; resize: none; }
+    button { background: #28a745; color: white; border: none; cursor: pointer; }
+    button:hover { background: #218838; }
+  </style>
 </head>
 <body>
 
-    <h2>Google AdSense Code Generator</h2>
+<div class="container">
+  <h2>Google AdSense Code Generator</h2>
+  
+  <label>Approved Website URL:</label>
+  <input type="text" id="siteUrl" placeholder="https://example.com">
+  
+  <label>Publisher ID (ca-pub-XXXXXXXXXXXX):</label>
+  <input type="text" id="publisherId" placeholder="ca-pub-1234567890123456">
+  
+  <label>Ad Slot ID:</label>
+  <input type="text" id="slotId" placeholder="1234567890">
+  
+  <label>Generated Code:</label>
+  <textarea id="output" readonly></textarea>
+  
+  <button onclick="generateCode()">Generate Ad Code</button>
+</div>
 
-    <label for="url">Website URL (Approved)</label>
-    <input type="text" id="url" placeholder="https://yourwebsite.com">
+<script>
+function generateCode() {
+  let siteUrl = document.getElementById('siteUrl').value.trim();
+  let publisherId = document.getElementById('publisherId').value.trim();
+  let slotId = document.getElementById('slotId').value.trim();
 
-    <label for="pubid">AdSense Publisher ID (ca-pub-XXXXXXXXXXXXXXX)</label>
-    <input type="text" id="pubid" placeholder="ca-pub-1234567890123456">
+  if (!siteUrl || !publisherId || !slotId) {
+    alert("Please fill all fields.");
+    return;
+  }
 
-    <label for="slotid">Ad Slot ID</label>
-    <input type="text" id="slotid" placeholder="1234567890">
-
-    <button onclick="generateCode()">Generate Ad Code</button>
-
-    <label for="output">Generated AdSense Code</label>
-    <textarea id="output" readonly></textarea>
-
-    <script>
-        function generateCode() {
-            let url = document.getElementById('url').value.trim();
-            let pubid = document.getElementById('pubid').value.trim();
-            let slotid = document.getElementById('slotid').value.trim();
-
-            if (!url || !pubid || !slotid) {
-                alert("Please fill all fields.");
-                return;
-            }
-
-            let code = 
-`<!-- Google AdSense Ad Code -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pubid}"
-     crossorigin="anonymous"></script>
+  let code = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${publisherId}" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block"
-     data-ad-client="${pubid}"
-     data-ad-slot="${slotid}"
+     data-ad-client="${publisherId}"
+     data-ad-slot="${slotId}"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<!-- Approved URL: ${url} -->`;
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<!-- Approved Site: ${siteUrl} -->`;
 
-            document.getElementById('output').value = code;
-        }
-    </script>
+  document.getElementById('output').value = code;
+}
+</script>
 
 </body>
 </html>
